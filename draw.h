@@ -11,9 +11,16 @@
 
 /**
  * @brief function to draw 9 moves
- * @param moves : the pointer to the structure of moves
  * @return the list of 9 moves
  */
-char draw9Moves();
+char* draw9Moves();
+
+/**
+ * @brief function to return a random number between min and max
+ * @param min : the minimum value
+ * @param max : the maximum value
+ * @return the random number
+ */
+int randomint(int min, int max);
 
 #endif //DRAW_H
