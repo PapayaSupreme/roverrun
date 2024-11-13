@@ -7,7 +7,6 @@
 
 //function to return a list of 9 moves following a probability rule and using the structure t_moves in moves.h
 
-#include "moves.h"
 
 /**
  * @brief function to draw 9 moves

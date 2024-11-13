@@ -4,7 +4,7 @@
 #include "draw.h"
 #include <time.h>
 int main() {
-    srand((unsigned)(time(NULL)));
+    srand((unsigned)(time(NULL)));  // seed the random number generator
     t_map map = createMapFromFile("..\\maps\\example1.map");
     printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
     for (int i = 0; i < map.y_max; i++)
@@ -25,11 +25,13 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+    /*
     //test draw9moves from draw.c
     char* moves = draw9Moves();
     for (int i = 0; i < 9; i++)
     {
         printf("%c ", moves[i]);
     }
+    */
     return 0;
 }
