@@ -3,6 +3,7 @@
 #include "map.h"
 #include "draw.h"
 #include <time.h>
+#include "tree.h"
 int main() {
     srand((unsigned)(time(NULL)));  // seed the random number generator
     t_map map = createMapFromFile("..\\maps\\example1.map");
@@ -33,5 +34,9 @@ int main() {
         printf("%c ", moves[i]);
     }
     */
+    
+    //test createTree from tree.c
+    t_node *root = createTree();
+    printTree(root);
     return 0;
 }
