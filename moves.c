@@ -166,7 +166,7 @@ t_node *moveIntree()
     //print the moves
     for (int i = 0; i < 9; i++)
     {
-        printf("%c ", moves[i]);
+        printf("%s ", getMoveAsString(moves[i]));
     }
     //create the tree
     t_node *root = createTree();

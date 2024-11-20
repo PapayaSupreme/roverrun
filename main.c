@@ -37,9 +37,13 @@ int main() {
     }
     */
 
-    //test moveIntree from moves.c
+    //test moveIntree from moves.c3
     t_node *root2 = moveIntree();
     //print the tree by level and tests the depending fucntion at the same time LOL
-    printTreeLayerByLayer(root2);
+    //printTreeLayerByLayer(root2);
+
+    //test getMoveAsString from moves.c
+
+    printf("%s\n", getMoveAsString(F_10));
     return 0;
 }

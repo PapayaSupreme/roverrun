@@ -2,7 +2,6 @@
 // Created by pablo on 21/10/2024.
 //
 #include <stdlib.h>
-#include <stdio.h>
 #include "draw.h"
 #include "moves.h"
 char* draw9Moves() {
@@ -16,34 +15,32 @@ char* draw9Moves() {
     for (int i = 0; i < 9; i++) {
         //random number between 1 and 100
         int random = randomint(1, 100-i);
-        //print random
-        printf("%d\n", random);
         if (random<=chances[0]) {
-            moves[i]="F_10";
+            moves[i]=0;
             counter=0;
         }
         else if (random <= chances[0]+chances[1]) {
-            moves[i]="F_20";
+            moves[i]=1;
             counter=1;
         }
         else if (random <= chances[0]+chances[1]+chances[2]) {
-            moves[i]="F_30";
+            moves[i]=2;
             counter=2;
         }
         else if (random<=chances[0]+chances[1]+chances[2]+chances[3]) {
-            moves[i]="B_10";
+            moves[i]=3;
             counter=3;
         }
         else if (random<=chances[0]+chances[1]+chances[2]+chances[3]+chances[4]) {
-            moves[i]="T_LEFT";
+            moves[i]=4;
             counter=4;
         }
         else if (random<=chances[0]+chances[1]+chances[2]+chances[3]+chances[4]+chances[5]) {
-            moves[i]="T_RIGHT";
+            moves[i]=5;
             counter=5;
         }
         else {
-            moves[i]="U_TURN";
+            moves[i]=6;
             counter=6;
         }
         //decrease the probability of the chosen move by 1%
