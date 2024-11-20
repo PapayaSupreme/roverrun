@@ -1,8 +1,12 @@
 //
 // Created by flasque on 19/10/2024.
 //
-
+#include "draw.h"
 #include "moves.h"
+
+#include <stdio.h>
+
+#include "tree.h"
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
@@ -153,3 +157,67 @@ void updateLocalisation(t_localisation *p_loc, t_move m)
     *p_loc = move(*p_loc, m);
     return;
 }
+
+// function moveInTree will use draw9Moves() to fill in  the first level of the tree with a move in each node. Then, fills the second level with every move left for each of the sons of the 9 fathers
+t_node *moveIntree()
+{
+    //first, call draw9Moves
+    char *moves = draw9Moves();
+    //print the moves
+    for (int i = 0; i < 9; i++)
+    {
+        printf("%c ", moves[i]);
+    }
+    //create the tree
+    t_node *root = createTree();
+    //fill the first level
+    for (int i = 0; i < 9; i++)
+    {
+        root->sons[i]->value = moves[i];   //[9] 1st floor
+        int skippedJ = 0;
+        for (int j = 0; j<9;j++) {
+            //fill the 2nd level with the moves left
+            if (j!=i)
+            {
+                root->sons[i]->sons[j-skippedJ]->value = moves[j];  //[8] 2nd floor
+                //fill the 3rd level with the moves left
+                int skippedK = 0;
+                for (int k = 0;k<9;k++) {
+                    if (k!=i && k!=j) {
+                        root->sons[i]->sons[j-skippedJ]->sons[k-skippedK]->value = moves[k];  //[7] 3rd floor
+                        int skippedL = 0;
+                        for (int l = 0;l<9;l++) {
+                            if (l!=i && l!=j && l!=k) {
+                                root->sons[i]->sons[j-skippedJ]->sons[k-skippedK]->sons[l-skippedL]->value = moves[l];  //[6] 4th floor
+                                int skippedM = 0;
+                                //fill the 5th level with the moves left, last level
+                                for (int m = 0;m<9;m++) {
+                                    if (m!=i && m!=j && m!=k && m!=l) {
+                                        root->sons[i]->sons[j-skippedJ]->sons[k-skippedK]->sons[l-skippedL]->sons[m-skippedM]->value = moves[m];  //[5] 5th floor
+                                    }
+                                    else {
+                                        skippedM++;
+                                    }
+                                }
+                            }
+                            else {
+                                skippedL++;
+                            }
+                        }
+                    }
+                    else {
+                        skippedK++;
+                    }
+
+                }
+            }
+            else {
+                skippedJ++;
+            }
+        }
+    }
+    return root;
+}
+
+
+

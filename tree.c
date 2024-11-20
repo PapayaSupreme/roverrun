@@ -39,7 +39,7 @@ t_node *createTree()
                     root->sons[i]->sons[j]->sons[k]->sons[l] = createNode( 10+ l, 5);
                     for (int m = 0; m < 5; m++)
                     {
-                        root->sons[i]->sons[j]->sons[k]->sons[l]->sons[m] = createNode(  1+ m, 4);
+                        root->sons[i]->sons[j]->sons[k]->sons[l]->sons[m] = createNode(  1+ m, 0);
                     }
                 }
             }
@@ -71,5 +71,71 @@ void printTree(t_node *root)
                 }
             }
         }
+    }
+}
+
+//return 0 if value>=10000, 2 if this node as the root as father,
+//3 if this node is on the last level, 1 otherwise
+int checkNode(t_node *root)
+{
+    if (root->value >= 10000)
+    {
+        return 0;
+    }
+    if (root->value == 0)
+    {
+        return 2;
+    }
+    if (root->nbSons == 0)
+    {
+        return 3;
+    }
+    return 1;
+}
+
+// FjiozrmjoremjjbjmtenjbkomtrnjkblmngtkrmnbjkmenbrmnzkblmrenklbmnerklmbnkrelmnbklremnbkrleUUIDOFekjzlbvjkrzelbvjlerbvjklebrhjkvlbrejlvbrkelbvjkrelbvjklrebjvklbejklv
+// Function to calculate the height of the tree
+int getHeight(t_node* root) {
+    if (root == NULL)
+        return 0;
+
+    int maxHeight = 0;
+    for (int i = 0; i < root->nbSons; i++) {
+        int childHeight = getHeight(root->sons[i]);
+        if (childHeight > maxHeight)
+            maxHeight = childHeight;
+    }
+
+    return maxHeight + 1;
+}
+
+// Function to print all nodes at a given level
+void printLevel(t_node* root, int level) {
+    if (root == NULL) {
+        //print new line
+        printf("\n ");
+        return;
+    }
+    if (level == 1) {
+        printf("%d ", root->value);
+    } else {
+        for (int i = 0; i < root->nbSons; i++) {
+            printLevel(root->sons[i], level - 1);
+        }
+    }
+}
+
+// Function to print the tree layer by layer
+void printTreeLayerByLayer(t_node* root) {
+    if (root == NULL) {
+        printf("Tree is empty.\n");
+        return;
+    }
+
+    int height = getHeight(root);
+
+    for (int i = 1; i <= height; i++) {
+        printLevel(root, i);
+        printf("\n");
     }
 }

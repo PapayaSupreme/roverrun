@@ -3,6 +3,8 @@
 #include "map.h"
 #include "draw.h"
 #include <time.h>
+#include "loc.h"
+#include "moves.h"
 #include "tree.h"
 int main() {
     srand((unsigned)(time(NULL)));  // seed the random number generator
@@ -34,9 +36,10 @@ int main() {
         printf("%c ", moves[i]);
     }
     */
-    
-    //test createTree from tree.c
-    t_node *root = createTree();
-    printTree(root);
+
+    //test moveIntree from moves.c
+    t_node *root2 = moveIntree();
+    //print the tree by level and tests the depending fucntion at the same time LOL
+    printTreeLayerByLayer(root2);
     return 0;
 }

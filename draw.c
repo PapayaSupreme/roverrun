@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "draw.h"
+#include "moves.h"
 char* draw9Moves() {
     //chances of each move happening, total 100
     int chances[7] = {22, 15, 7, 7, 21, 21, 7};

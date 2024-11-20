@@ -31,4 +31,31 @@ t_node *createTree();
  */
 void printTree(t_node *root);
 
+/**
+ * @brief function to check if a node is a leaf, a root or a node in the middle
+ * @param root : the node to check
+ * @return 0 if value>=10000, 2 if this node as the root as father,
+ * 3 if this node is on the last level, 1 otherwise
+ */
+int checkNode(t_node *root);
+
+/**
+ * @brief function to calculate the height of the tree
+ * @param root : the root of the tree
+ * @return the height of the tree
+ */
+int getHeight(t_node* root);
+
+/**
+ * @brief function to print all nodes at a given level
+ * @param root : the root of the tree
+ * @param level : the level to print
+ */
+void printLevel(t_node* root, int level);
+
+/**
+ * @brief prints the tree layer by layers
+ * @param root : the root of the tree
+ */
+void printTreeLayerByLayer(t_node* root);
 #endif //TREE_H
