@@ -139,3 +139,32 @@ void printTreeLayerByLayer(t_node* root) {
         printf("\n");
     }
 }
+
+int* lightestBranch(t_node* root) {
+    //tree is empty
+    if (root == NULL) {
+        return NULL;
+    }
+    int height = getHeight(root);
+    int* path = (int*)malloc(height * sizeof(int));
+    int min = 10000;
+    int index = 0;
+    for (int i = 0; i < root->nbSons; i++) {
+        if (root->sons[i]->value < min) {
+            min = root->sons[i]->value;
+            index = i;
+        }
+    }
+    path[0] = root->value;
+    for (int i = 1; i < height; i++) {
+        path[i] = root->sons[index]->value;
+        min = 10000;
+        for (int j = 0; j < root->sons[index]->nbSons; j++) {
+            if (root->sons[index]->sons[j]->value < min) {
+                min = root->sons[index]->sons[j]->value;
+                index = j;
+            }
+        }
+    }
+    return path;
+}

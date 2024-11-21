@@ -83,4 +83,12 @@ int calculate_node(int nodevalue, t_localisation localisation, t_map map, int si
  */
 void fillTreeWithCost(t_node *root, t_map map, t_localisation loc);
 
+/**
+ *
+ * @param loc : location of the robot
+ * @param map : the map
+ * @param move : the move, e.g. to know where the robot will land
+ * @return : 2 : base station, 3 : erg, 4 : reg, 0 : crevasse, 1 : plain
+ */
+int checkMove(t_localisation loc, t_map map, t_move move);
 #endif //UNTITLED1_MOVES_H

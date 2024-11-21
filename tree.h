@@ -58,4 +58,8 @@ void printLevel(t_node* root, int level);
  * @param root : the root of the tree
  */
 void printTreeLayerByLayer(t_node* root);
+
+// function to compute the lightest branch of the tree, returns its path in a simple list
+int* lightestBranch(t_node* root);
+
 #endif //TREE_H

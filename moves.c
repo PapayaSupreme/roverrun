@@ -291,3 +291,28 @@ int calculate_node(int nodevalue, t_localisation localisation, t_map map, int si
     printf("Position: (%d, %d), Orientation %d\n", newloc.pos.x, newloc.pos.y, newloc.ori);
     return cost;
 }
+
+int checkMove(t_localisation loc, t_map map, t_move move)
+{
+    //if cost is>10000, it's a crevasse
+    if (cost(loc, map) > 10000)
+    {
+        return 0;
+    }
+    //if cost is 0, it's the base station
+    if (cost(loc, map) == 0)
+    {
+        return 2;
+    }
+    //if the destination is an erg
+    if (map.soils[translate(loc, move).pos.y][translate(loc, move).pos.x] == ERG)
+    {
+        return 3;
+    }
+    //if the destination is a reg
+    if (map.soils[translate(loc, move).pos.y][translate(loc, move).pos.x] == REG)
+    {
+        return 4;
+    }
+    return 1;
+}
