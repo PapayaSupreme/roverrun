@@ -7,6 +7,7 @@
 
 #include "loc.h"
 #include "tree.h"
+#include "map.h"
 /**
  * @brief Array of strings for the possible moves of the robot
  */
@@ -55,5 +56,31 @@ void updateLocalisation(t_localisation *, t_move);
  * @return the adress of the root of the tree
  */
 t_node *moveIntree();
+
+int cost(t_localisation loc,t_map map);
+
+// function to fill the tree with the moves costs
+void computeCostInTree(t_node *root, t_map map, t_localisation loc);
+
+// function to fill the tree with the moves costs but node per node
+/**
+ * @brief function to calculate the cost of a node
+ * @param nodevalue : the value of the node
+ * @param localisation : the localisation of the robot
+ * @param map : the map
+ * @param size : the size of the node
+ * @return the cost of the node
+ */
+int calculate_node(int nodevalue, t_localisation localisation, t_map map, int size);
+
+// function to fill the tree with the moves costs using calculate_node
+/**
+ * @brief function to fill the tree with the costs of the moves
+ * @param root : the root of the tree
+ * @param map : the map
+ * @param loc : the localisation of the robot
+ * @return none
+ */
+void fillTreeWithCost(t_node *root, t_map map, t_localisation loc);
 
 #endif //UNTITLED1_MOVES_H

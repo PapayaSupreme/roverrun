@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 
+#include "map.h"
 #include "tree.h"
 
 /* prototypes of local functions */
@@ -56,7 +57,7 @@ t_localisation translate(t_localisation loc, t_move move)
      *  - y grows to the bottom with step of +1
      *  - the origin (x=0, y=0) is at the top left corner
      */
-    t_position res;
+    t_position res = loc.pos;
     switch (move) {
         case F_10:
             switch (loc.ori) {
@@ -219,5 +220,74 @@ t_node *moveIntree()
     return root;
 }
 
+int cost(t_localisation loc,t_map map)
+{
+    if (isValidLocalisation(loc.pos, 6, 7)){
+        return map.costs[loc.pos.y][loc.pos.x];
+    }
+    return -1 ;
+}
 
+/*void computeCostInTree(t_node *root, t_map map, t_localisation loc)
+{
+    //check if the node is a leaf
+    if (checkNode(root) == 0)
+    {
+        //update the localisation
+        t_localisation new_loc = move(loc, root->value);
+        //update the cost : actual cost of the move(value of the node) + cost of the new position
+        root->value = cost(new_loc, map);
+    }
+    else
+    {
+        //recursive call on the sons
+        for (int i = 0; i < root->nbSons; i++)
+        {
+            computeCostInTree(root->sons[i], map, loc);
+        }
+    }
+    return;
+}
+*/
 
+//compute every cost of moves thnaks to calculatenode
+void fillTreeWithCost(t_node *root, t_map map, t_localisation loc)
+{
+    //check if the node is a leaf
+    if (checkNode(root) == 0)
+    {
+        //update the cost : actual cost of the move(value of the node) + cost of the new position
+        root->value = calculate_node(root->value, loc, map, 1)+100; // DOESNT WORK AT ALL 
+    }
+    else
+    {
+        //recursive call on the sons
+        for (int i = 0; i < root->nbSons; i++)
+        {
+            fillTreeWithCost(root->sons[i], map, loc);
+        }
+    }
+}
+
+int calculate_node(int nodevalue, t_localisation localisation, t_map map, int size) {
+    t_localisation newloc = localisation;
+    for (int i = 0; i < size; i++) {
+        switch(nodevalue) {
+            case 0: newloc = translate(newloc, F_10); break;
+            case 1: newloc = translate(newloc, F_20); break;
+            case 2: newloc = translate(newloc, F_30); break;
+            case 3: newloc = translate(newloc, B_10); break;
+            case 4: newloc.ori = rotate(newloc.ori, T_RIGHT); break;
+            case 5: newloc.ori = rotate(newloc.ori, T_LEFT); break;
+            case 6: newloc.ori = rotate(newloc.ori, U_TURN); break;
+            default: break;
+        }
+    }
+    if (isValidLocalisation(newloc.pos, map.x_max, map.y_max)) {
+        return -1;
+    }
+
+    int cost = map.costs[newloc.pos.y][newloc.pos.x];
+    printf("Position: (%d, %d), Orientation %d\n", newloc.pos.x, newloc.pos.y, newloc.ori);
+    return cost;
+}

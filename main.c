@@ -39,11 +39,23 @@ int main() {
 
     //test moveIntree from moves.c3
     t_node *root2 = moveIntree();
-    //print the tree by level and tests the depending fucntion at the same time LOL
-    //printTreeLayerByLayer(root2);
 
     //test getMoveAsString from moves.c
 
     printf("%s\n", getMoveAsString(F_10));
+    //test move from moves.c
+    t_localisation loc = loc_init(3, 3, NORTH);
+    //printf("New position : x = %d, y = %d, orientation = %d\n", new_loc.pos.x, new_loc.pos.y, new_loc.ori);
+    //test computeCostInTree from moves.c
+    //computeCostInTree(root2, map, loc);
+    //print the tree by level and tests the depending fucntion at the same time LOL
+    //test calculate_node and printTreeWithCosts from moves.c
+    fillTreeWithCost(root2, map, loc);
+    printTreeLayerByLayer(root2);
+    // print costs of the actual position
+    //printf("Cost of the move : %d\n", cost(loc, map));
+    //test cost from moves.c
+    printf("Cost of the move : %d\n", cost(loc, map));
+
     return 0;
 }
