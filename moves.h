@@ -59,10 +59,10 @@ t_node *moveIntree();
 
 int cost(t_localisation loc,t_map map);
 
-// function to fill the tree with the moves costs
+// function to fill the tree with the moves costs DOESNT ORK YETDOESNT ORK YET
 void computeCostInTree(t_node *root, t_map map, t_localisation loc);
 
-// function to fill the tree with the moves costs but node per node
+// function to fill the tree with the moves costs but node per node DOESNT ORK YET
 /**
  * @brief function to calculate the cost of a node
  * @param nodevalue : the value of the node
@@ -73,7 +73,7 @@ void computeCostInTree(t_node *root, t_map map, t_localisation loc);
  */
 int calculate_node(int nodevalue, t_localisation localisation, t_map map, int size);
 
-// function to fill the tree with the moves costs using calculate_node
+// function to fill the tree with the moves costs using calculate_node DOESNT WORK YET
 /**
  * @brief function to fill the tree with the costs of the moves
  * @param root : the root of the tree
@@ -91,4 +91,10 @@ void fillTreeWithCost(t_node *root, t_map map, t_localisation loc);
  * @return : 2 : base station, 3 : erg, 4 : reg, 0 : crevasse, 1 : plain
  */
 int checkMove(t_localisation loc, t_map map, t_move move);
+
+//function that works with checkmove :
+//if its a crevasse (0), will fill the value of the node with 10000;
+//for a erg (3)it'll remove the farthest sons of the node
+//for a reg (4)it'll put int reg to 1
+void checkNode(t_node *root, t_localisation loc, t_map map);
 #endif //UNTITLED1_MOVES_H

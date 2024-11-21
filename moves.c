@@ -159,7 +159,6 @@ void updateLocalisation(t_localisation *p_loc, t_move m)
     return;
 }
 
-// function moveInTree will use draw9Moves() to fill in  the first level of the tree with a move in each node. Then, fills the second level with every move left for each of the sons of the 9 fathers
 t_node *moveIntree()
 {
     //first, call draw9Moves
@@ -294,8 +293,8 @@ int calculate_node(int nodevalue, t_localisation localisation, t_map map, int si
 
 int checkMove(t_localisation loc, t_map map, t_move move)
 {
-    //if cost is>10000, it's a crevasse
-    if (cost(loc, map) > 10000)
+    //if it goes over or lands on a crevassse, return 0
+    if (!isValidLocalisation(translate(loc, move).pos, map.x_max, map.y_max) || map.soils[translate(loc, move).pos.y][translate(loc, move).pos.x] == CREVASSE)
     {
         return 0;
     }
@@ -316,3 +315,23 @@ int checkMove(t_localisation loc, t_map map, t_move move)
     }
     return 1;
 }
+
+void checkNode(t_node *root, t_localisation loc, t_map map)
+{
+    int output = checkMove(loc, map, root->value);
+    if (output == 0)
+    {
+        root->value = 10000;
+    }
+    if (output == 3)
+    {
+        //while the sons have sons, itarate. Then, remove the last level found
+        t_node *temproot = root;
+        while (temproot->nbSons > 0)
+        {
+            temproot = temproot->sons[temproot->nbSons-1];
+        }
+        //remove the level that has no sons
+    }
+}
+
