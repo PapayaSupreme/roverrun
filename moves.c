@@ -291,6 +291,7 @@ int calculate_node(int nodevalue, t_localisation localisation, t_map map, int si
     return cost;
 }
 
+/*
 int checkMove(t_localisation loc, t_map map, t_move move)
 {
     //if it goes over or lands on a crevassse, return 0
@@ -335,3 +336,4 @@ void checkNode(t_node *root, t_localisation loc, t_map map)
     }
 }
 
+*/

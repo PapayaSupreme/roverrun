@@ -43,11 +43,16 @@ int main() {
     }
     */
 
+    //mesure the time it takes for all the functions to run
+    clock_t start, end;
+    double cpu_time_used;
+    start = clock();
+
     //test moveIntree from moves.c3
     t_node *root2 = moveIntree();
 
     //test getMoveAsString from moves.c
-    printf("%s\n", getMoveAsString(F_10));
+    //printf("%s\n", getMoveAsString(F_10));
 
     //test move from moves.c
     t_localisation loc = loc_init(3, 3, NORTH);
@@ -57,13 +62,13 @@ int main() {
     //computeCostInTree(root2, map, loc);
 
     //print the tree by level and tests the depending fucntion at the same time LOL
-    printTreeLayerByLayer(root2);
+    //printTreeLayerByLayer(root2);
 
     //test calculate_node and printTreeWithCosts from moves.c
     fillTreeWithCost(root2, map, loc);
 
     //test cost from moves.c
-    printf("Cost of the move : %d\n", cost(loc, map));
+    //printf("Cost of the move : %d\n", cost(loc, map));
 
     //test lightestBranch from tree.c
     int *branch = lightestBranch(root2);
@@ -71,5 +76,10 @@ int main() {
     {
         printf("%d ", branch[i]);
     }
+
+    //end the timer
+    end = clock();
+    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    printf("Time taken : %f\n", cpu_time_used);
     return 0;
 }

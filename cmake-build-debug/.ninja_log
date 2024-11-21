@@ -42,3 +42,8 @@
 23	170	7538876312796996	CMakeFiles/untitled1.dir/tree.c.obj	a889f9db018fdc4d
 5	171	7538876312620800	CMakeFiles/untitled1.dir/main.c.obj	19b51b40cf7a3c81
 171	332	7538876314276301	untitled1.exe	cbd6e8e358d1c605
+4	99	7538896251393658	CMakeFiles/untitled1.dir/main.c.obj	19b51b40cf7a3c81
+10	101	7538896251465113	CMakeFiles/untitled1.dir/moves.c.obj	4fdc03988cbea127
+16	101	7538896251516072	CMakeFiles/untitled1.dir/draw.c.obj	6adcb4d7ff328259
+5	81	7538897003446128	CMakeFiles/untitled1.dir/main.c.obj	19b51b40cf7a3c81
+81	159	7538897004209753	untitled1.exe	cbd6e8e358d1c605
