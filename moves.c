@@ -5,6 +5,7 @@
 #include "moves.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "map.h"
 #include "tree.h"
@@ -221,21 +222,24 @@ t_node *moveIntree()
 
 int cost(t_localisation loc,t_map map)
 {
-    if (isValidLocalisation(loc.pos, 6, 7)){
+    if (isValidLocalisation(loc.pos, 6, 7)==1){
         return map.costs[loc.pos.y][loc.pos.x];
     }
-    return -1 ;
+    return -1;
 }
 
-/*void computeCostInTree(t_node *root, t_map map, t_localisation loc)
+void computeCostInTree(t_node *root, t_map map, t_localisation loc)
 {
     //check if the node is a leaf
-    if (checkNode(root) == 0)
+    if (checkNode(root) == 3)
     {
         //update the localisation
         t_localisation new_loc = move(loc, root->value);
-        //update the cost : actual cost of the move(value of the node) + cost of the new position
-        root->value = cost(new_loc, map);
+        //update the cost : actual cost of the move(value of the node) + cost of the new position thanks to map.costs
+        if (isValidLocalisation(new_loc.pos, map.x_max, map.y_max))
+            {
+            root->value = map.costs[new_loc.pos.y][new_loc.pos.x];
+        }
     }
     else
     {
@@ -245,53 +249,10 @@ int cost(t_localisation loc,t_map map)
             computeCostInTree(root->sons[i], map, loc);
         }
     }
-    return;
-}
-*/
-
-//compute every cost of moves thnaks to calculatenode
-void fillTreeWithCost(t_node *root, t_map map, t_localisation loc)
-{
-    //check if the node is a leaf
-    if (checkNode(root) == 0)
-    {
-        //update the cost : actual cost of the move(value of the node) + cost of the new position
-        root->value = calculate_node(root->value, loc, map, 1)+100; // DOESNT WORK AT ALL 
-    }
-    else
-    {
-        //recursive call on the sons
-        for (int i = 0; i < root->nbSons; i++)
-        {
-            fillTreeWithCost(root->sons[i], map, loc);
-        }
-    }
 }
 
-int calculate_node(int nodevalue, t_localisation localisation, t_map map, int size) {
-    t_localisation newloc = localisation;
-    for (int i = 0; i < size; i++) {
-        switch(nodevalue) {
-            case 0: newloc = translate(newloc, F_10); break;
-            case 1: newloc = translate(newloc, F_20); break;
-            case 2: newloc = translate(newloc, F_30); break;
-            case 3: newloc = translate(newloc, B_10); break;
-            case 4: newloc.ori = rotate(newloc.ori, T_RIGHT); break;
-            case 5: newloc.ori = rotate(newloc.ori, T_LEFT); break;
-            case 6: newloc.ori = rotate(newloc.ori, U_TURN); break;
-            default: break;
-        }
-    }
-    if (isValidLocalisation(newloc.pos, map.x_max, map.y_max)) {
-        return -1;
-    }
 
-    int cost = map.costs[newloc.pos.y][newloc.pos.x];
-    printf("Position: (%d, %d), Orientation %d\n", newloc.pos.x, newloc.pos.y, newloc.ori);
-    return cost;
-}
 
-/*
 int checkMove(t_localisation loc, t_map map, t_move move)
 {
     //if it goes over or lands on a crevassse, return 0
@@ -317,23 +278,24 @@ int checkMove(t_localisation loc, t_map map, t_move move)
     return 1;
 }
 
-void checkNode(t_node *root, t_localisation loc, t_map map)
+void checkNode4checkMove(t_node *root, t_localisation loc, t_map map)
 {
     int output = checkMove(loc, map, root->value);
     if (output == 0)
     {
-        root->value = 10000;
+        root->value = 10000;//crevasse, doing so makes us ignore this branch bc uninterseting
     }
-    if (output == 3)
+    if (output == 3)//erg
     {
-        //while the sons have sons, itarate. Then, remove the last level found
+        //while the sons have sons, iterate. Then, remove the last level found
         t_node *temproot = root;
         while (temproot->nbSons > 0)
         {
             temproot = temproot->sons[temproot->nbSons-1];
         }
         //remove the level that has no sons
+        free(temproot);
     }
+
 }
 
-*/

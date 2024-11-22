@@ -24,7 +24,7 @@ t_node *createNode(int val, int nb_sons)
 // values are for now increasing by 1 from 0 to 18730 (1 + 9 +9*8 +9*8*7+9*8*7*6+9*8*7*6*5 nodes)
 t_node *createTree()
 {
-    t_node *root = createNode(0, 9);
+    t_node *root = createNode(-1, 9);
     for (int i = 0; i < 9; i++)
     {
         root->sons[i] = createNode(i +10000, 8);
@@ -82,7 +82,7 @@ int checkNode(t_node *root)
     {
         return 0;
     }
-    if (root->value == 0)
+    if (root->value == -1)
     {
         return 2;
     }
@@ -141,30 +141,25 @@ void printTreeLayerByLayer(t_node* root) {
 }
 
 int* lightestBranch(t_node* root) {
-    //tree is empty
     if (root == NULL) {
         return NULL;
     }
     int height = getHeight(root);
     int* path = (int*)malloc(height * sizeof(int));
-    int min = 10000;
-    int index = 0;
-    for (int i = 0; i < root->nbSons; i++) {
-        if (root->sons[i]->value < min) {
-            min = root->sons[i]->value;
-            index = i;
-        }
-    }
     path[0] = root->value;
+
+    t_node* current = root;
     for (int i = 1; i < height; i++) {
-        path[i] = root->sons[index]->value;
-        min = 10000;
-        for (int j = 0; j < root->sons[index]->nbSons; j++) {
-            if (root->sons[index]->sons[j]->value < min) {
-                min = root->sons[index]->sons[j]->value;
+        int min = 10000;
+        int index = 0;
+        for (int j = 0; j < current->nbSons; j++) {
+            if (current->sons[j]->value < min) {
+                min = current->sons[j]->value;
                 index = j;
             }
         }
+        current = current->sons[index];
+        path[i] = current->value;
     }
     return path;
 }

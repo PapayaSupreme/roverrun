@@ -44,7 +44,6 @@ t_map createMapFromFile(char *);
 
 /**
  * @brief Function to create a standard training map (11x11 with only plains and base station in the middle)
- * @param none
  * @return a standard map
  */
  t_map createTrainingMap();

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "map.h"
-#include "draw.h"
 #include <time.h>
 #include "loc.h"
 #include "moves.h"
@@ -11,7 +10,8 @@ int main() {
 
     //setup maps and test createMap from map.c
     t_map map = createMapFromFile("..\\maps\\example1.map");
-    printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
+    //printf("Map created with dimensions %d x %d\n", map.y_max, map.x_max);
+
     for (int i = 0; i < map.y_max; i++)
     {
         for (int j = 0; j < map.x_max; j++)
@@ -45,7 +45,6 @@ int main() {
 
     //mesure the time it takes for all the functions to run
     clock_t start, end;
-    double cpu_time_used;
     start = clock();
 
     //test moveIntree from moves.c3
@@ -59,27 +58,24 @@ int main() {
     //printf("New position : x = %d, y = %d, orientation = %d\n", new_loc.pos.x, new_loc.pos.y, new_loc.ori);
 
     //test computeCostInTree from moves.c
-    //computeCostInTree(root2, map, loc);
+    computeCostInTree(root2, map, loc);
 
     //print the tree by level and tests the depending fucntion at the same time LOL
-    //printTreeLayerByLayer(root2);
-
-    //test calculate_node and printTreeWithCosts from moves.c
-    fillTreeWithCost(root2, map, loc);
+    printTreeLayerByLayer(root2);
 
     //test cost from moves.c
     //printf("Cost of the move : %d\n", cost(loc, map));
 
     //test lightestBranch from tree.c
     int *branch = lightestBranch(root2);
-    for (int i = 0; i < 5; i++)
+    for (int i = 0; i < 6; i++)
     {
         printf("%d ", branch[i]);
     }
 
     //end the timer
     end = clock();
-    cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+    double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     printf("Time taken : %f\n", cpu_time_used);
     return 0;
 }
