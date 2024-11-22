@@ -4,15 +4,15 @@
 #include <stdlib.h>
 #include "draw.h"
 #include "moves.h"
-char* draw9Moves() {
+char* drawXMoves(int x) {
     //chances of each move happening, total 100
     int chances[7] = {22, 15, 7, 7, 21, 21, 7};
     //each time a movement is chosen, its probability of being drawn decreases by 1%
     //counter index for current move
     int counter;
     //malloc the array of moves
-    char *moves = (char *)malloc(9 * sizeof(char));
-    for (int i = 0; i < 9; i++) {
+    char *moves = (char *)malloc(x * sizeof(char));
+    for (int i = 0; i < x; i++) {
         //random number between 1 and 100
         int random = randomint(1, 100-i);
         if (random<=chances[0]) {

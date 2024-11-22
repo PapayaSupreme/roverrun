@@ -52,10 +52,11 @@ t_localisation move(t_localisation, t_move);
 void updateLocalisation(t_localisation *, t_move);
 
 /**
- * @brief function to assignate all the possibilities of a draw9Moves draw to a tree
+ * @brief function to assignate all the possibilities of a drawXMoves draw to a tree
+ * @param x : the number of moves to draw
  * @return the adress of the root of the tree
  */
-t_node *moveIntree();
+t_node *moveIntree(int x);
 
 int cost(t_localisation loc,t_map map);
 
@@ -71,11 +72,14 @@ void computeCostInTree(t_node *root, t_map map, t_localisation loc);
  */
 int checkMove(t_localisation loc, t_map map, t_move move);
 
-//function that works with checkmove :
-//if its a crevasse (0), will fill the value of the node with 10000;
-//for a erg (3)it'll remove the farthest sons of the node
-//for a reg (4)it'll put int reg to 1
-void checkNode4checkMove(t_node *root, t_localisation loc, t_map map);
+/**
+ * @brief function to check if a move is possible
+ * @param root : the node to check
+ * @param loc : the location of the robot
+ * @param map : the map
+ * @return 0 default, -1 for turn debuff of reg
+ */
+int checkNode4checkMove(t_node *root, t_localisation loc, t_map map);
 
 
 

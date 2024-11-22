@@ -21,6 +21,7 @@ int main() {
         printf("\n");
     }
 
+    int x = 9; // number of moves to draw to account for reg debuff
     // printf the costs, aligned left 5 digits
     for (int i = 0; i < map.y_max; i++)
     {
@@ -48,7 +49,7 @@ int main() {
     start = clock();
 
     //test moveIntree from moves.c3
-    t_node *root2 = moveIntree();
+    t_node *root2 = moveIntree(x);
 
     //test getMoveAsString from moves.c
     //printf("%s\n", getMoveAsString(F_10));

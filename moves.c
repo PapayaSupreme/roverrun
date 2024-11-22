@@ -160,10 +160,10 @@ void updateLocalisation(t_localisation *p_loc, t_move m)
     return;
 }
 
-t_node *moveIntree()
+t_node *moveIntree(int x)
 {
     //first, call draw9Moves
-    char *moves = draw9Moves();
+    char *moves = drawXMoves(x);
     //print the moves
     for (int i = 0; i < 9; i++)
     {
@@ -278,8 +278,8 @@ int checkMove(t_localisation loc, t_map map, t_move move)
     return 1;
 }
 
-void checkNode4checkMove(t_node *root, t_localisation loc, t_map map)
-{
+int checkNode4checkMove(t_node *root, t_localisation loc, t_map map)        //DONT USE CHECKMOVE USE THIS ONE, SUBSTRACT ITS
+{                                                                           // RETURN TO X TO ACCOUNT FOR REG DEBUFF
     int output = checkMove(loc, map, root->value);
     if (output == 0)
     {
@@ -296,6 +296,10 @@ void checkNode4checkMove(t_node *root, t_localisation loc, t_map map)
         //remove the level that has no sons
         free(temproot);
     }
-
+    if (output == 4)//reg
+    {
+        return -1;
+    }
+    return 0;
 }
 

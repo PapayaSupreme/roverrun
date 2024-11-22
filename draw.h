@@ -10,9 +10,10 @@
 
 /**
  * @brief function to draw 9 moves
+ * @param x : the number of moves to draw
  * @return the list of 9 moves
  */
-char* draw9Moves();
+char* drawXMoves(int x);
 
 /**
  * @brief function to return a random number between min and max
