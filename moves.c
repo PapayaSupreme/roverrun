@@ -228,15 +228,25 @@ int cost(t_localisation loc,t_map map)
     return -1;
 }
 
-void computeCostInTree(t_node *root, t_map map, t_localisation loc)
+void computeCostInTree(t_node *root, t_map map, t_localisation loc, int x)
 {
     //check if the node is a leaf
     if (checkNode(root) == 3)
     {
         //update the localisation
         t_localisation new_loc = move(loc, root->value);
+        int temp = checkNode4checkMove(root, new_loc, map);
+        if (temp == -1)
+        {
+            x -= temp;
+        }
+        if (temp==100)
+        {
+            root->value = 0;
+            //we put it as the most interesting node then put 0 at its sons
+        }
         //update the cost : actual cost of the move(value of the node) + cost of the new position thanks to map.costs
-        if (isValidLocalisation(new_loc.pos, map.x_max, map.y_max))
+        else if (isValidLocalisation(new_loc.pos, map.x_max, map.y_max))
             {
             root->value = map.costs[new_loc.pos.y][new_loc.pos.x];
         }
@@ -246,7 +256,7 @@ void computeCostInTree(t_node *root, t_map map, t_localisation loc)
         //recursive call on the sons
         for (int i = 0; i < root->nbSons; i++)
         {
-            computeCostInTree(root->sons[i], map, loc);
+            computeCostInTree(root->sons[i], map, loc, x);
         }
     }
 }
@@ -299,6 +309,10 @@ int checkNode4checkMove(t_node *root, t_localisation loc, t_map map)        //DO
     if (output == 4)//reg
     {
         return -1;
+    }
+    if (output == 2)//base station
+    {
+        return 100;
     }
     return 0;
 }

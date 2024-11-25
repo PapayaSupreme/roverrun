@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "map.h"
 #include <time.h>
+
+#include "draw.h"
 #include "loc.h"
 #include "moves.h"
 #include "tree.h"
@@ -21,7 +23,6 @@ int main() {
         printf("\n");
     }
 
-    int x = 9; // number of moves to draw to account for reg debuff
     // printf the costs, aligned left 5 digits
     for (int i = 0; i < map.y_max; i++)
     {
@@ -35,15 +36,15 @@ int main() {
     // test displayMap
     displayMap(map);
 
+    int x = 9; // number of moves to draw to account for reg debuff, 9 default
     /*
-    //test draw9moves from draw.c
-    char* moves = draw9Moves();
+    //test drawXmoves from draw.c
+    char* moves = drawXMoves(x);
     for (int i = 0; i < 9; i++)
     {
         printf("%c ", moves[i]);
     }
     */
-
     //mesure the time it takes for all the functions to run
     clock_t start, end;
     start = clock();
@@ -59,21 +60,20 @@ int main() {
     //printf("New position : x = %d, y = %d, orientation = %d\n", new_loc.pos.x, new_loc.pos.y, new_loc.ori);
 
     //test computeCostInTree from moves.c
-    computeCostInTree(root2, map, loc);
+    computeCostInTree(root2, map, loc, x);
 
     //print the tree by level and tests the depending fucntion at the same time LOL
-    printTreeLayerByLayer(root2);
+    //printTreeLayerByLayer(root2);
 
     //test cost from moves.c
     //printf("Cost of the move : %d\n", cost(loc, map));
 
     //test lightestBranch from tree.c
     int *branch = lightestBranch(root2);
-    for (int i = 0; i < 6; i++)
+    for (int i = 1; i < 6; i++)
     {
         printf("%d ", branch[i]);
     }
-
     //end the timer
     end = clock();
     double cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;

@@ -61,7 +61,7 @@ t_node *moveIntree(int x);
 int cost(t_localisation loc,t_map map);
 
 // function to fill the tree with the moves costs DOESNT ORK YETDOESNT ORK YET
-void computeCostInTree(t_node *root, t_map map, t_localisation loc);
+void computeCostInTree(t_node *root, t_map map, t_localisation loc, int x);
 
 /**
  *
